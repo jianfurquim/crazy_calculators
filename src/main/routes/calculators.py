@@ -8,10 +8,12 @@ calc_route_bp = Blueprint("calc_routes", __name__)
 def calculator_one():
     try:
         if not request.is_json:
-            return jsonify({"error": "Invalid Content-Type, must be application/json"}), 400
+            return (
+                jsonify({"error": "Invalid Content-Type, must be application/json"}),
+                400,
+            )
 
         calc = CalculatorOne()
-        calc.calculate(request)
-        return jsonify({"success": True}), 200
+        return jsonify(calc.calculate(request)), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
